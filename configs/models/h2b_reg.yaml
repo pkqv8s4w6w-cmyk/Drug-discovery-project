@@ -1,0 +1,16 @@
+# ADR-002: agonism, not affinity. An affinity filter deletes lisuride and 2-bromo-LSD.
+model: h2b_agonism
+target: CHEMBL1833
+endpoints:
+  primary: EC50                         # 1022 records, restricted to agonist-mode assays
+  covariate: Ki                         # 3024 records, covariate ONLY
+  efficacy: emax_pct                    # normalized to serotonin (REF014)
+assay_filter:
+  assay_mode: [agonist]
+  require_functional: true
+reject_rule:
+  pec50_gt: 7.0
+  and_emax_pct_gt: 20.0
+flag_values: [clear, watch, reject, abstain]
+abstain_when_out_of_domain: true
+regression_test: tests/test_antitarget_filter.py::test_2b_filter_retains_reference_nonhallucinogens

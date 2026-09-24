@@ -1,0 +1,1 @@
+"""VERIDIAN chem subpackage."""

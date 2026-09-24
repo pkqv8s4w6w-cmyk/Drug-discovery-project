@@ -1,0 +1,21 @@
+# 2-aminotetralin: conformationally locked phenethylamine.
+route: aminotetralin
+scaffold: two_aminotetralin
+enabled: true
+day_one: false
+steps: 2
+description: >
+  Trivial to enumerate with dense building-block coverage, but sits closest to classic
+  psychedelic chemical space - higher prior that the whole sub-library scores
+  hallucinogen-like. Kept coded, not enumerated day one.
+warning: chemical_space_proximity_to_known_hallucinogens
+smarts_status: PLACEHOLDER
+building_blocks:
+  - role: tetralone
+    query_smarts: "O=C1CCCc2ccccc21"
+    approx_available: 400
+  - role: amine
+    query_smarts: "[NX3;H1,H2]"
+    approx_available: 10000
+constraints:
+  retains_basic_nitrogen: true

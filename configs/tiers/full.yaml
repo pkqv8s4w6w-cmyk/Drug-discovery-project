@@ -1,0 +1,25 @@
+# NOT runnable in this container: 1M brute-force docking is ~87 days on 4 cores.
+# `veridian full --emit-jobspec` writes a shardable job spec instead of running.
+# See ADR-010 and docs/compute_budget.md.
+tier: full
+library:
+  n_target: 1000000
+  routes: [pictet_spengler, azepinoindole, isodmt, aminotetralin, isoquinuclidine]
+screen:
+  n_dock_budget: 20000                  # docked fraction ~2%, bridged by active learning
+  receptors: [6WHA]
+  comparator_fraction: 0.01
+  active_learning:
+    enabled: true
+    init_batch: 2000
+    n_rounds: 6
+    batch: 1500
+    surrogate: lightgbm
+    acquisition: greedy_plus_ucb
+    holdout_for_recall: 2000            # measure our own recall loss, do not cite someone else's
+docking:
+  engine: vina
+  exhaustiveness: 8
+  num_modes: 9
+compute:
+  dispatch: slurm                       # emits a jobspec; submission not implemented

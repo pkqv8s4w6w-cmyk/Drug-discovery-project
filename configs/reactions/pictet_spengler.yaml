@@ -1,0 +1,25 @@
+# Tetrahydro-beta-carboline via Pictet-Spengler. Day-one route (ADR-004).
+route: pictet_spengler
+scaffold: tetrahydro_beta_carboline
+enabled: true
+day_one: true
+steps: 1
+description: >
+  Rigidified tryptamine. Best-populated chemistry of the five, cleanest enumeration,
+  and constrained analogs of this class recur on the non-hallucinogenic side.
+smarts: "[c:1]1[c:2][nH:3][c:4]2[c:5]1[c:6][c:7][c:8][c:9]2.[CH2:10][CH2:11][NH2:12]>>..."
+smarts_status: PLACEHOLDER              # see TODO below
+building_blocks:
+  - role: tryptamine
+    query_smarts: "c1cc2c(cc1)[nH]cc2CCN"
+    approx_available: 1000
+  - role: aldehyde
+    query_smarts: "[CX3H1](=O)[#6]"
+    approx_available: 20000
+constraints:
+  retains_basic_nitrogen: true          # N2 of the THbC ring
+  expected_cation_site: ring_N2
+todo: >
+  Write and unit-test the real reaction SMARTS. Acceptance: applying it to tryptamine +
+  benzaldehyde must yield exactly 1-phenyl-2,3,4,9-tetrahydro-1H-pyrido[3,4-b]indole,
+  and every product must pass chem.protonation.has_basic_nitrogen.

@@ -1,0 +1,23 @@
+# Isoquinuclidine via aza-Diels-Alder. This is IBOGAINE's core, not tabernanthalog's
+# (ADR-004). Retained because bridged bicyclics remain interesting, but demoted from
+# day-one status after the scaffold attribution was corrected.
+route: isoquinuclidine
+scaffold: isoquinuclidine
+enabled: true
+day_one: false
+steps: 2
+description: >
+  Bridged, conformationally locked bicyclic. Sparser building-block coverage than the
+  other four. Note that tabernanthalog was derived by REMOVING this cage from ibogaine.
+exemplars: []                           # deliberately empty - no reference compound has this core
+smarts_status: PLACEHOLDER
+building_blocks:
+  - role: imine
+    query_smarts: "[CX3]=[NX2]"
+    approx_available: 200
+  - role: dienophile
+    query_smarts: "C=CC(=O)"
+    approx_available: 1500
+constraints:
+  retains_basic_nitrogen: true
+  expected_cation_site: bridgehead_N

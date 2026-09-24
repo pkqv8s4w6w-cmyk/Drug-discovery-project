@@ -1,0 +1,241 @@
+# VERIDIAN receptor panel
+#
+# All 16 entries verified live against RCSB on 2026-09-24 (existence + resolution).
+#
+# CRITICAL (ADR-003): the conserved orthosteric aspartate D3.32 is residue 155 in 5-HT2A
+# but residue 135 in 5-HT2B. Never hardcode the number. Resolve through `bw_map` and
+# validate against the structure at load time.
+#
+# `auth_seq_id` values marked `verify: true` are the canonical UniProt numbering and have
+# NOT yet been confirmed against each deposited structure's author numbering. Author
+# numbering can differ (fusion partners, truncations, renumbering). structure/validate.py
+# must confirm each one and flip the flag; a mismatch is a hard error, not a warning.
+
+defaults:
+  ph: 7.4
+  box_padding_angstrom: 5.0          # around native ligand extents
+  box_min_edge_angstrom: 18.0
+  box_max_edge_angstrom: 24.0
+  strip_components:                  # dropped during preparation
+    - miniGq
+    - G_beta
+    - G_gamma
+    - scFv16
+    - nanobody
+    - BRIL
+    - T4L
+    - HOH
+    - CLR                            # cholesterol
+    - OLC                            # monoolein
+    - PEG
+    - SO4
+
+# Ballesteros-Weinstein maps. Keys are BW numbers; values are the one-letter residue
+# plus UniProt sequence position.
+bw_maps:
+  HTR2A:                             # UniProt P28223
+    "3.32": D155
+    "3.36": S159
+    "5.39": L229
+    "5.43": S239
+    "6.48": W336
+    "6.51": F339
+    "6.52": F340
+    "7.43": Y370
+  HTR2B:                             # UniProt Q9UBJ2 / P41595
+    "3.32": D135
+    "3.36": S139
+    "5.43": S222
+    "6.48": W337
+    "6.51": F340
+    "6.52": F341
+    "7.43": Y370
+
+families:
+  primary:        [6WHA]
+  hallucinogenic: [9AS7, 9AS3, 9AS1, 9AS5]
+  non_hallucinogenic: [7WC9, 8UWL, 9ARZ, 9AS9]
+  antitarget:     [6DRX, 6DRY, 6DRZ, 6DS0, 4IB4]
+  control:        [7WC4, 6A93]
+
+receptors:
+
+  # ---- primary docking target ----
+  6WHA:
+    target: HTR2A
+    uniprot: P28223
+    native_ligand: 25CN-NBOH
+    native_ligand_ref: REF006
+    method: cryo-EM
+    resolution: 3.36
+    auth_chain: A
+    redock_threshold_angstrom: 3.0   # cryo-EM >= 3.2 A, see PREREGISTRATION G1
+    verify: true
+    notes: >
+      Primary docking receptor. Active state with miniGq chimera. Widely used for
+      5-HT2A med-chem docking and gives a known-good redocking validation target.
+
+  # ---- non-hallucinogenic-bound comparators ----
+  7WC9:
+    target: HTR2A
+    uniprot: P28223
+    native_ligand: IHCH-7086
+    native_ligand_ref: REF011
+    method: X-ray
+    resolution: 2.50
+    auth_chain: A
+    redock_threshold_angstrom: 2.0
+    verify: true
+    notes: Highest-resolution non-hallucinogenic complex in the panel. Partial agonist.
+  8UWL:
+    target: HTR2A
+    uniprot: P28223
+    native_ligand: lisuride
+    native_ligand_ref: REF007
+    method: cryo-EM
+    resolution: 2.80
+    auth_chain: A
+    redock_threshold_angstrom: 2.5
+    verify: true
+    notes: The critical negative. Half of hard pair G6.
+  9ARZ:
+    target: HTR2A
+    uniprot: P28223
+    native_ligand: 2-bromo-LSD
+    native_ligand_ref: REF008
+    method: cryo-EM
+    resolution: 3.37
+    auth_chain: A
+    redock_threshold_angstrom: 3.0
+    verify: true
+    notes: Half of hard pair G7.
+  9AS9:
+    target: HTR2A
+    uniprot: P28223
+    native_ligand: RS130-180
+    native_ligand_ref: REF012
+    method: cryo-EM
+    resolution: 3.47
+    auth_chain: A
+    redock_threshold_angstrom: 3.0
+    verify: true
+    notes: >
+      beta-arrestin-biased. Lowest resolution in the panel - weight accordingly.
+      Extract the REF012 structure from this entry's chemical component dictionary
+      rather than by name lookup (ADR-013).
+
+  # ---- hallucinogenic-bound comparators ----
+  9AS7:
+    target: HTR2A
+    uniprot: P28223
+    native_ligand: psilocin
+    native_ligand_ref: REF002
+    method: cryo-EM
+    resolution: 2.72
+    auth_chain: A
+    redock_threshold_angstrom: 2.5
+    verify: true
+  9AS3:
+    target: HTR2A
+    uniprot: P28223
+    native_ligand: LSD
+    native_ligand_ref: REF001
+    method: cryo-EM
+    resolution: 3.18
+    auth_chain: A
+    redock_threshold_angstrom: 3.0
+    verify: true
+  9AS1:
+    target: HTR2A
+    uniprot: P28223
+    native_ligand: DMT
+    native_ligand_ref: REF003
+    method: cryo-EM
+    resolution: 3.38
+    auth_chain: A
+    redock_threshold_angstrom: 3.0
+    verify: true
+  9AS5:
+    target: HTR2A
+    uniprot: P28223
+    native_ligand: mescaline
+    native_ligand_ref: REF004
+    method: cryo-EM
+    resolution: 3.34
+    auth_chain: A
+    redock_threshold_angstrom: 3.0
+    verify: true
+
+  # ---- 5-HT2B antitarget panel ----
+  6DRX:
+    target: HTR2B
+    uniprot: P41595
+    method: X-ray
+    resolution: 3.10
+    auth_chain: A
+    redock_threshold_angstrom: 2.5
+    verify: true
+    notes: McCorvy 2018 biased-agonism series.
+  6DRY:
+    target: HTR2B
+    uniprot: P41595
+    method: X-ray
+    resolution: 2.92
+    auth_chain: A
+    redock_threshold_angstrom: 2.0
+    verify: true
+  6DRZ:
+    target: HTR2B
+    uniprot: P41595
+    method: X-ray
+    resolution: 3.10
+    auth_chain: A
+    redock_threshold_angstrom: 2.5
+    verify: true
+  6DS0:
+    target: HTR2B
+    uniprot: P41595
+    method: X-ray
+    resolution: 3.19
+    auth_chain: A
+    redock_threshold_angstrom: 2.5
+    verify: true
+  4IB4:
+    target: HTR2B
+    uniprot: P41595
+    native_ligand: ergotamine
+    method: X-ray
+    resolution: 2.70
+    auth_chain: A
+    redock_threshold_angstrom: 2.0
+    verify: true
+    notes: >
+      BRIL fusion plus thermostabilizing mutations. structure/validate.py must diff
+      SEQRES against P41595 and record every mutation in structures/MANIFEST.yaml.
+      A thermostabilizing mutation inside the pocket invalidates this entry for
+      differential use - the manifest makes that visible instead of silent.
+
+  # ---- controls ----
+  7WC4:
+    target: HTR2A
+    uniprot: P28223
+    native_ligand: serotonin
+    native_ligand_ref: REF014
+    method: X-ray
+    resolution: 3.20
+    auth_chain: A
+    redock_threshold_angstrom: 3.0
+    verify: true
+    notes: Endogenous agonist reference.
+  6A93:
+    target: HTR2A
+    uniprot: P28223
+    native_ligand: risperidone
+    method: X-ray
+    resolution: 3.00
+    auth_chain: A
+    redock_threshold_angstrom: 2.5
+    verify: true
+    notes: >
+      Inactive-state antagonist complex. Negative control - agonist candidates should
+      NOT preferentially score here. Not part of either differential family.

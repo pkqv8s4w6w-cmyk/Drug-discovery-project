@@ -1,0 +1,18 @@
+# ~9.6 h on 4 cores. One night. Repeatable.
+tier: dev
+library:
+  n_target: 2000
+  routes: [pictet_spengler, azepinoindole]   # ADR-004
+screen:
+  n_dock_budget: 2000
+  receptors: [6WHA]
+  comparator_fraction: 0.10             # top 10% go to the 8-receptor differential panel
+docking:
+  engine: vina
+  exhaustiveness: 8
+  num_modes: 9
+  rescore_engine: smina
+  rescore_scoring: vinardo
+validation:
+  n_bootstrap: 1000
+  n_permutations: 1000

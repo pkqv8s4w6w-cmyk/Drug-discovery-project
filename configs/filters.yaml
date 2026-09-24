@@ -1,0 +1,33 @@
+# Applied at ENUMERATION time, cheapest first (ADR-011).
+basic_nitrogen:
+  # The D155 salt bridge is non-negotiable: no salt bridge, no agonist.
+  smarts: "[NX3;H2,H1,H0;!$(N[C,S,P]=[O,S,N]);!$(N[a]);!$(N#*);!$([N+]);!$(N=*);!$(N[N,O])]"
+  amidine_smarts: "[NX3][CX3]=[NX2]"
+  guanidine_smarts: "[NX3][CX3](=[NX2])[NX3]"
+  # Topological requirement: the cation must be able to reach the aspartate.
+  min_bonds_to_aromatic: 2
+  max_bonds_to_aromatic: 4
+
+properties:            # CNS-drug-like window; also keeps Vina fast
+  mw: [200, 450]
+  clogp: [0.0, 4.5]
+  tpsa_max: 80
+  hbd_max: 2
+  hba_max: 6
+  rotatable_bonds_max: 6
+  cns_mpo_min: 4.0
+
+structural_alerts:
+  pains: true
+  brenk: true
+  nih: true
+  reactive_groups: true
+
+diversity:
+  max_per_murcko_scaffold: 50
+  dedupe_on: inchikey
+  dedupe_against: [reference_set, chembl]
+
+synthesizability:
+  sa_score_max: 4.5      # sanity check only, not a filter (ADR-011)
+  max_synth_steps: 2

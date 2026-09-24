@@ -1,0 +1,14 @@
+model: h2a_affinity
+target: CHEMBL224
+endpoints: [Ki, EC50]
+aggregate: median_with_mad
+min_records: 1
+features:
+  fingerprint: ecfp4_counts
+  n_bits: 2048
+  descriptors: rdkit_2d
+estimator: lightgbm
+conformal:
+  method: inductive_regression
+  alpha: 0.10
+splits: [random_5fold, murcko_scaffold]

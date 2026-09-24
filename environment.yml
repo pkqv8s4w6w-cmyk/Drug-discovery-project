@@ -1,0 +1,15 @@
+# Docking binaries. ADR-005: gnina is NOT available -- github.com releases return 403
+# through the environment proxy, and gnina is absent from conda-forge entirely.
+# Verified available on conda-forge/linux-64 (2026-09-24):
+#   vina 1.2.5 / 1.2.6 / 1.2.7, smina 2020.12.10, openbabel 3.1.0 / 3.1.1 / 3.2.1
+# apt fallback: autodock-vina 1.2.5-2build1, openbabel 3.1.1+dfsg-9ubuntu5
+name: veridian
+channels: [conda-forge]
+dependencies:
+  - python=3.11
+  - vina=1.2.7
+  - smina=2020.12.10
+  - openbabel=3.1.1
+  - pip
+  - pip:
+      - -r requirements/dev.txt

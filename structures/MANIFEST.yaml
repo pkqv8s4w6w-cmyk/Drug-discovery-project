@@ -1,0 +1,19 @@
+# Per-structure provenance, filled in by structure/fetch.py and structure/prepare.py.
+#
+# Committed so that a candidate list can be traced to the exact coordinates that produced
+# it. Empty until the fetch stage runs.
+#
+# Schema per entry:
+#   pdb_id:
+#     sha256:            hash of the downloaded file
+#     fetched_at:        ISO-8601
+#     resolution:        Angstrom
+#     method:            X-ray | cryo-EM
+#     auth_chain:        receptor chain retained
+#     stripped:          components removed during preparation
+#     mutations:         SEQRES differences against the UniProt reference
+#     pocket_mutations:  mutations within the orthosteric site -- ANY entry here
+#                        invalidates the structure for differential use
+#     box:               center and size used for docking
+#     bw_verified:       true once assert_key_residues has confirmed the residue map
+structures: {}

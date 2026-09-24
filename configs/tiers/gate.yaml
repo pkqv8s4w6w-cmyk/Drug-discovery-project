@@ -1,0 +1,19 @@
+# ~24 h on 4 cores. THE go/no-go. Criteria fixed in PREREGISTRATION.md section 4.
+tier: gate
+library:
+  n_target: 0
+screen:
+  n_dock_budget: 1300
+  receptors: all
+docking:
+  engine: vina
+  exhaustiveness: 8
+  num_modes: 9
+  redock_seeds: [1, 2, 3]
+validation:
+  n_matched_decoys: 1000
+  n_chembl_actives: 150
+  n_chembl_inactives: 150
+  n_bootstrap: 1000
+  n_permutations: 1000
+  write_pass_marker: runs/gate/PASS     # make library depends on this (ADR-001)

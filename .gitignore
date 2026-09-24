@@ -1,0 +1,31 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Regenerable data. data/reference/ is COMMITTED -- it is hand-curated and is the ruler.
+data/raw/
+data/interim/
+data/processed/
+data/results/
+data/external/
+
+# Structures are downloaded; structures/MANIFEST.yaml is committed.
+structures/raw/
+structures/prepared/
+
+# Run outputs. runs/README.md is committed.
+runs/*
+!runs/README.md
+
+*.pdbqt
+*.sdf.gz
+*.parquet

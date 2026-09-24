@@ -1,0 +1,15 @@
+# ~7.5 min on 4 cores. Proves the plumbing end to end.
+tier: smoke
+library:
+  n_target: 0                           # no enumeration; reference + decoys only
+screen:
+  n_dock_budget: 60
+  receptors: [6WHA]
+docking:
+  engine: vina
+  exhaustiveness: 8
+  num_modes: 9
+validation:
+  n_matched_decoys: 47
+  n_bootstrap: 100
+  n_permutations: 100

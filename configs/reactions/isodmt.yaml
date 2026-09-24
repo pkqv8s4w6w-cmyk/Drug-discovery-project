@@ -1,0 +1,22 @@
+# N1-substituted indole (isoDMT). Zalsupindole / AAZ-A-154 chemotype.
+route: isodmt
+scaffold: n1_substituted_indole
+enabled: true
+day_one: false
+steps: 1
+description: >
+  The aminoalkyl chain sits on the indole nitrogen rather than C3. Olson-lab chemotype;
+  zalsupindole (REF010, CID 154694212) is the clinical exemplar.
+exemplars: [REF010]
+smarts_status: PLACEHOLDER
+building_blocks:
+  - role: indole
+    query_smarts: "c1ccc2[nH]ccc2c1"
+    approx_available: 2000
+  - role: aminoalkyl_halide
+    query_smarts: "[CX4][Cl,Br,I]"
+    approx_available: 8000
+constraints:
+  retains_basic_nitrogen: true
+  expected_cation_site: sidechain_N
+todo: Acceptance - must reconstruct REF010 (KHEUWLQKCXGVEL-LLVKDONJSA-N).

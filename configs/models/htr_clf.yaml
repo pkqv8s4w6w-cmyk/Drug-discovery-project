@@ -1,0 +1,31 @@
+# ADR-008: this model REPORTS. It never filters and never ranks.
+model: htr_classifier
+primary_estimator: gp_tanimoto          # GP + MinMax-Tanimoto kernel; native variance = AD signal
+comparators:                            # all reported side by side, always
+  - random_forest
+  - one_nn_tanimoto                     # "is this just similarity search?" control
+  - potency_only_logreg                 # PREREGISTRATION section 5.3 - the honest baseline
+  - scaffold_majority_dummy
+features:
+  fingerprint: ecfp4_counts
+  n_bits: 2048
+  extra_covariates: [pchembl_2a, emax_2a]   # force the model past the potency confound
+splits:                                 # all three reported; the gap IS the result
+  - random_5fold
+  - murcko_scaffold
+  - leave_one_chemotype_out
+conformal:
+  method: mondrian_inductive            # class-conditional; marginal is useless here (ADR-009)
+  alpha: 0.10
+  cal_frac: 0.40
+  cal_split: scaffold
+  n_repeats: 20
+  raise_if_underpowered: true           # min_achievable_alpha() hard-errors
+applicability_domain:
+  metric: one_minus_max_tanimoto
+  threshold_percentile: 95
+  report_coverage_as_headline: true     # page one of every report
+corpus_tiers:
+  A: quantitative_rodent_htr_only       # headline results use tier A
+  B: plus_drug_discrimination
+  C: plus_self_report                   # reported separately, NEVER in headline numbers

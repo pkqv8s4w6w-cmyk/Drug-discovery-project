@@ -1,0 +1,29 @@
+# Tetrahydroazepino[4,5-b]indole. Day-one route. THIS is tabernanthalog's chemotype
+# (CID 146026994, C14H18N2O) - NOT isoquinuclidine. See ADR-004.
+route: azepinoindole
+scaffold: tetrahydroazepinoindole
+enabled: true
+day_one: true
+steps: 2
+description: >
+  Where the known non-hallucinogenic agonists actually cluster. Tabernanthalog and
+  IHCH-7086 are both azepino-fused. Replaced isoquinuclidine as a day-one route after
+  structure verification showed the original scaffold attribution was wrong.
+exemplars:
+  - REF009    # tabernanthalog
+  - REF011    # IHCH-7086
+smarts_status: PLACEHOLDER
+building_blocks:
+  - role: substituted_indole
+    query_smarts: "c1ccc2[nH]ccc2c1"
+    approx_available: 800
+  - role: amine_linker
+    query_smarts: "[NX3;H1,H2][CX4]"
+    approx_available: 5000
+constraints:
+  retains_basic_nitrogen: true
+  expected_cation_site: azepine_N
+todo: >
+  Enumerate the 7-membered-ring closure. Acceptance: the route must be able to
+  reconstruct tabernanthalog (InChIKey FNGNYGCPNKZYOG-UHFFFAOYSA-N) from commercially
+  plausible inputs. If it cannot regenerate its own exemplar, the route is wrong.

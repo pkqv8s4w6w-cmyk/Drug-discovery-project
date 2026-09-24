@@ -1,0 +1,11 @@
+# ADR-007: co-primary non-hallucinogenicity proxy. Better populated than HTR.
+model: h2a_efficacy
+target: CHEMBL224
+endpoint: emax_pct
+reference_agonist: REF014               # serotonin = 100%
+covariates: [assay_readout]             # calcium vs IP1 vs arrestin matters mechanistically
+partial_agonist_window: [20, 70]        # percent of serotonin Emax
+estimator: lightgbm
+conformal:
+  method: inductive_regression
+  alpha: 0.10

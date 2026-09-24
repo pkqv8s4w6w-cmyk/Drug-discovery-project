@@ -1,0 +1,38 @@
+# VERIDIAN base configuration. Tier files in configs/tiers/ layer on top of this.
+project:
+  name: veridian
+  preregistration: PREREGISTRATION.md   # sha256 recorded in every run manifest
+
+seed: 20260924                          # global; each stage derives seed + stage name
+
+paths:
+  data: data
+  reference: data/reference
+  raw: data/raw
+  interim: data/interim
+  processed: data/processed
+  results: data/results
+  external: data/external
+  structures_raw: structures/raw
+  structures_prepared: structures/prepared
+  runs: runs
+
+compute:
+  n_workers: 4                          # == physical cores; see ADR-012
+  vina_cpu_per_process: 1               # MUST stay 1 for determinism (ADR-012)
+  dispatch: local                       # local | slurm | awsbatch (only local implemented)
+  chunk_size: 500
+  resume: true
+
+logging:
+  level: INFO
+  rich: true
+
+chembl:
+  targets:
+    HTR2A: CHEMBL224                    # 7897 Ki / 2414 IC50 / 1456 EC50 (verified 2026-09-24)
+    HTR2B: CHEMBL1833                   # 3024 Ki / 1022 EC50
+    HTR2C: CHEMBL225                    # 4671 Ki
+    HTR1A: CHEMBL214                    # 6971 Ki
+  min_confidence_score: 7
+  inactive_pchembl_threshold: 5.0       # verified inactives for the primary decoy set
